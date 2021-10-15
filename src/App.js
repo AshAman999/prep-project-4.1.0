@@ -13,9 +13,8 @@ function App() {
   const [results, setResults] = useState(null);
 
   useEffect(() => {
-    alanKey = process.env.REACT_APP_ALAN_KEY;
     alanBtn({
-      key: alanKey,
+      key: process.env.REACT_APP_ALAN_APIKEY,
       onCommand: ({ command }) => {},
     });
     const options = {
