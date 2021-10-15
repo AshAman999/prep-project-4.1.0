@@ -3,15 +3,21 @@ import "./App.css";
 import Header from "./Components/Header";
 import Card from "./Components/Card";
 import Loader from "react-loader-spinner";
-import logo from './mlh-prep.png';
+import logo from "./mlh-prep.png";
+import alanBtn from "@alan-ai/alan-sdk-web";
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [city, setCity] = useState("");
   const [results, setResults] = useState(null);
-  
+
   useEffect(() => {
+    alanKey = process.env.REACT_APP_ALAN_KEY;
+    alanBtn({
+      key: alanKey,
+      onCommand: ({ command }) => {},
+    });
     const options = {
       enableHighAccuracy: false,
       timeout: 5000,
@@ -83,22 +89,22 @@ function App() {
   } else {
     return (
       <>
-        <img className='logo' src={logo} alt='MLH Prep Logo'></img>
+        <img className="logo" src={logo} alt="MLH Prep Logo"></img>
         <div>
-        <Header city={city} setCity={setCity} />
-        <div className="Results">
-          {!isLoaded && (
-            <Loader
-              type="Oval"
-              color="#00BFFF"
-              height={40}
-              width={40}
-              style={{ marginTop: "40px" }}
-            />
-          )}
-          {console.log(results)}
-          {isLoaded && results && <Card results={results} />}
-        </div>
+          <Header city={city} setCity={setCity} />
+          <div className="Results">
+            {!isLoaded && (
+              <Loader
+                type="Oval"
+                color="#00BFFF"
+                height={40}
+                width={40}
+                style={{ marginTop: "40px" }}
+              />
+            )}
+            {console.log(results)}
+            {isLoaded && results && <Card results={results} />}
+          </div>
         </div>
       </>
     );
